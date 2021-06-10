@@ -20,13 +20,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MoviesFragment : Fragment() {
 
-    private lateinit var binding: FragmentMoviesBinding
+    private var _binding: FragmentMoviesBinding? = null
+    private val binding get() = _binding!!
 
     private val movieViewModel: MovieViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentMoviesBinding.inflate(inflater, container, false)
+        _binding = FragmentMoviesBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

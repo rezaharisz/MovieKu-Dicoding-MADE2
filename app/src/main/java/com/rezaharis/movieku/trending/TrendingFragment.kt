@@ -1,4 +1,4 @@
-package com.rezaharis.movieku.tvshow
+package com.rezaharis.movieku.trending
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,23 +9,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rezaharis.movieku.databinding.FragmentTrendingBinding
+import com.rezaharis.movieku.trending.detail.DetailTrendingActivity
 import com.rezaharisz.core.data.Resource
-import com.rezaharis.movieku.tvshow.detail.DetailTvShowActivity.Companion.TV_SH0WS
-import com.rezaharis.movieku.databinding.FragmentTvshowsBinding
-import com.rezaharis.movieku.tvshow.detail.DetailTvShowActivity
-import com.rezaharisz.core.ui.adapter.TvShowsAdapter
+import com.rezaharisz.core.ui.adapter.TrendingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TvShowsFragment : Fragment() {
+class TrendingFragment : Fragment() {
 
-    private var _binding: FragmentTvshowsBinding? = null
+    private var _binding: FragmentTrendingBinding? = null
     private val binding get() = _binding!!
 
-    private val tvShowsViewModel: TvShowsViewModel by viewModels()
+    private val trendingViewModel: TrendingViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentTvshowsBinding.inflate(inflater, container, false)
+        _binding = FragmentTrendingBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -38,21 +38,20 @@ class TvShowsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null){
-
-            val tvShowsAdapter = TvShowsAdapter()
-            tvShowsAdapter.onItemClick = {
-                val intent = Intent(activity, DetailTvShowActivity::class.java)
-                intent.putExtra(TV_SH0WS, it)
+            val trendingAdapter = TrendingAdapter()
+            trendingAdapter.onItemClick = {
+                val intent = Intent(activity, DetailTrendingActivity::class.java)
+                intent.putExtra(DetailTrendingActivity.TRENDING, it)
                 startActivity(intent)
             }
 
-            tvShowsViewModel.tvShows.observe(viewLifecycleOwner) { listTvShows ->
-                if (listTvShows != null) {
-                    when (listTvShows) {
+            trendingViewModel.trending.observe(viewLifecycleOwner){ listTrending ->
+                if (listTrending != null) {
+                    when (listTrending) {
                         is Resource.Loading -> showLoading(true)
                         is Resource.Success -> {
                             showLoading(false)
-                            tvShowsAdapter.setData(listTvShows.data)
+                            trendingAdapter.setData(listTrending.data)
                         }
                         is Resource.Error -> {
                             showLoading(false)
@@ -66,10 +65,10 @@ class TvShowsFragment : Fragment() {
                 }
             }
 
-            with(binding.crTvshows){
+            with(binding.crTrending){
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = tvShowsAdapter
+                adapter = trendingAdapter
             }
         }
     }

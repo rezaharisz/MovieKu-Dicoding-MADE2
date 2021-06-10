@@ -20,15 +20,21 @@ import javax.inject.Inject
 
 class FavoriteMovieFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavoriteMovieBinding
+    private var _binding: FragmentFavoriteMovieBinding? = null
+    private val binding get() = _binding!!
 
     @Inject
     lateinit var factory: ViewModelFactory
     private val favoritesMovieViewModel: FavoritesMovieViewModel by viewModels {factory}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteMovieBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

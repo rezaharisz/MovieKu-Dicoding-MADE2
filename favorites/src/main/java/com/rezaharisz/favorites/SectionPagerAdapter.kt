@@ -12,13 +12,9 @@ class SectionPagerAdapter(activity: AppCompatActivity): FragmentStateAdapter(act
     }
 
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-
-        when(position){
-            0 -> fragment = FavoriteMovieFragment()
-            1 -> fragment = FavoriteTvShowsFragment()
+        return when(position){
+            0 -> FavoriteMovieFragment()
+            else -> FavoriteTvShowsFragment()
         }
-
-        return fragment as Fragment
     }
 }
