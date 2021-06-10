@@ -11,12 +11,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MovieKu">
-        <activity android:name=".trending.detail.DetailTrendingActivity"></activity>
-        <activity
-            android:name=".trending.DetailTrendingActivity"
-            android:label="@string/title_activity_detail_trending"
-            android:theme="@style/Theme.MovieKu.NoActionBar" />
+        android:theme="@style/Theme.MovieKu"
+        android:fullBackupContent="@xml/backup_descriptor">
+        <activity android:name=".trending.detail.DetailTrendingActivity" />
         <activity android:name=".tvshow.detail.DetailTvShowActivity" />
         <activity android:name=".movie.detail.DetailMovieActivity" />
         <activity android:name=".SplashActivity">
