@@ -1,6 +1,7 @@
 package com.rezaharisz.core.data.sources.local.sources
 
 import com.rezaharisz.core.data.sources.local.entity.MovieEntities
+import com.rezaharisz.core.data.sources.local.entity.TrendingEntities
 import com.rezaharisz.core.data.sources.local.entity.TvShowsEntities
 import com.rezaharisz.core.data.sources.local.room.MovieKuFavoritesDao
 import kotlinx.coroutines.flow.Flow
@@ -33,4 +34,10 @@ class LocalDataSources @Inject constructor(private val movieKuFavoritesDao: Movi
         tvShowsEntities.setFavorite = newState
         movieKuFavoritesDao.updateTvShows(tvShowsEntities)
     }
+
+    //TRENDING
+    fun getTrending(): Flow<List<TrendingEntities>> = movieKuFavoritesDao.getTrending()
+
+    suspend fun insertTrending(trendingEntities: List<TrendingEntities>) = movieKuFavoritesDao.insertTrending(trendingEntities)
+            
 }

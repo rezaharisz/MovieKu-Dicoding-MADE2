@@ -80,10 +80,4 @@ class DetailMovieActivity : AppCompatActivity() {
             binding.setFavorite.setImageResource(R.drawable.ic_no_favorite)
         }
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-
-        finish()
-    }
 }

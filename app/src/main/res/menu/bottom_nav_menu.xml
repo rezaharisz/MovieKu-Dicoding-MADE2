@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_tvshows_selector"
         android:title="@string/tv_shows" />
 
+    <item
+        android:id="@+id/navigation_trending"
+        android:icon="@drawable/ic_trend_selector"
+        android:title="@string/trending" />
+
 </menu>

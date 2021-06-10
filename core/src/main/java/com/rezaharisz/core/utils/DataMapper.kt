@@ -1,10 +1,13 @@
 package com.rezaharisz.core.utils
 
 import com.rezaharisz.core.data.sources.local.entity.MovieEntities
+import com.rezaharisz.core.data.sources.local.entity.TrendingEntities
 import com.rezaharisz.core.data.sources.local.entity.TvShowsEntities
 import com.rezaharisz.core.data.sources.remote.responses.ResponseDataMovie
+import com.rezaharisz.core.data.sources.remote.responses.ResponseDataTrending
 import com.rezaharisz.core.data.sources.remote.responses.ResponseDataTvShows
 import com.rezaharisz.core.domain.model.Movies
+import com.rezaharisz.core.domain.model.Trending
 import com.rezaharisz.core.domain.model.TvShows
 
 object DataMapper {
@@ -90,6 +93,50 @@ object DataMapper {
             id = input.id,
             poster = input.poster,
             tvShowsName = input.tvShowsName,
+            description = input.description,
+            releasedate = input.releasedate,
+            rate = input.rate,
+            votecount = input.votecount,
+            setFavorite = input.setFavorite
+        )
+
+    //TRENDING
+    fun mapTrendingResponsesToEntities(input: List<ResponseDataTrending>): List<TrendingEntities>{
+        val trendingList = ArrayList<TrendingEntities>()
+        input.map {
+            val trending = TrendingEntities(
+                id = it.id,
+                poster = it.poster,
+                trendingName = it.trendingName,
+                description = it.description,
+                releasedate = it.releasedate,
+                rate = it.rate,
+                votecount = it.votecount
+            )
+            trendingList.add(trending)
+        }
+        return trendingList
+    }
+
+    fun mapTrendingEntitiesToDomain(input: List<TrendingEntities>): List<Trending> =
+        input.map {
+            Trending(
+                id = it.id,
+                poster = it.poster,
+                trendingName = it.trendingName,
+                description = it.description,
+                releasedate = it.releasedate,
+                rate = it.rate,
+                votecount = it.votecount,
+                setFavorite = it.setFavorite
+            )
+        }
+
+    fun mapTrendingDomainToEntities(input: Trending) =
+        TrendingEntities(
+            id = input.id,
+            poster = input.poster,
+            trendingName = input.trendingName,
             description = input.description,
             releasedate = input.releasedate,
             rate = input.rate,

@@ -2,6 +2,7 @@ package com.rezaharisz.core.domain.repository
 
 import com.rezaharisz.core.data.Resource
 import com.rezaharisz.core.domain.model.Movies
+import com.rezaharisz.core.domain.model.Trending
 import com.rezaharisz.core.domain.model.TvShows
 import kotlinx.coroutines.flow.Flow
 
@@ -15,4 +16,7 @@ interface IMovieKuRepository {
     fun getTvShows(): Flow<Resource<List<TvShows>>>
     fun getFavoriteTvShows(): Flow<List<TvShows>>
     fun setFavoriteTvShows(tvShows: TvShows, state: Boolean)
+
+    //TRENDING
+    fun getTrending(): Flow<Resource<List<Trending>>>
 }

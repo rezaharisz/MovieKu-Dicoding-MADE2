@@ -5,4 +5,5 @@
     <dimen name="twentyfour_sp">24sp</dimen>
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="eighteen_sp">18sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

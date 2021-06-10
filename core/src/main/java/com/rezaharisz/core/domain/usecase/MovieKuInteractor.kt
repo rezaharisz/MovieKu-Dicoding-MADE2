@@ -1,11 +1,13 @@
 package com.rezaharisz.core.domain.usecase
 
 import com.rezaharisz.core.domain.model.Movies
+import com.rezaharisz.core.domain.model.Trending
 import com.rezaharisz.core.domain.model.TvShows
 import com.rezaharisz.core.domain.repository.IMovieKuRepository
 import javax.inject.Inject
 
 class MovieKuInteractor @Inject constructor(private val movieKuRepository: IMovieKuRepository): MovieKuUseCase {
+
     override fun getMovies() = movieKuRepository.getMovies()
 
     override fun getFavoriteMovies() = movieKuRepository.getFavoriteMovies()
@@ -21,5 +23,7 @@ class MovieKuInteractor @Inject constructor(private val movieKuRepository: IMovi
     override fun setFavoriteTvShows(tvShows: TvShows, state: Boolean) {
         return movieKuRepository.setFavoriteTvShows(tvShows, state)
     }
+
+    override fun getTrending() = movieKuRepository.getTrending()
 
 }

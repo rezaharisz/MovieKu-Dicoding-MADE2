@@ -2,6 +2,7 @@ package com.rezaharisz.core.data.sources.local.room
 
 import androidx.room.*
 import com.rezaharisz.core.data.sources.local.entity.MovieEntities
+import com.rezaharisz.core.data.sources.local.entity.TrendingEntities
 import com.rezaharisz.core.data.sources.local.entity.TvShowsEntities
 import kotlinx.coroutines.flow.Flow
 
@@ -33,4 +34,12 @@ interface MovieKuFavoritesDao {
 
     @Update
     fun updateTvShows(tvShowsEntities: TvShowsEntities)
+
+    //TRENDING
+    @Query("SELECT * FROM trending_entities")
+    fun getTrending(): Flow<List<TrendingEntities>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTrending(trendingEntities: List<TrendingEntities>)
+
 }

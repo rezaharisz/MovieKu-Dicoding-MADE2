@@ -35,4 +35,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Theme.MovieKu.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MovieKu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MovieKu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -17,4 +17,10 @@
         android:label="fragment_info"
         tools:layout="@layout/fragment_tvshows" />
 
+    <fragment
+        android:id="@+id/navigation_trending"
+        android:name="com.rezaharis.movieku.trending.TrendingFragment"
+        android:label="fragment_trending"
+        tools:layout="@layout/fragment_trending" />
+
 </navigation>

@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieKu">
+        <activity android:name=".trending.detail.DetailTrendingActivity"></activity>
+        <activity
+            android:name=".trending.DetailTrendingActivity"
+            android:label="@string/title_activity_detail_trending"
+            android:theme="@style/Theme.MovieKu.NoActionBar" />
         <activity android:name=".tvshow.detail.DetailTvShowActivity" />
         <activity android:name=".movie.detail.DetailMovieActivity" />
         <activity android:name=".SplashActivity">
@@ -21,7 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="@string/app_name" />
 
         <meta-data

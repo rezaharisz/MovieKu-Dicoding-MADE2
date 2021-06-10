@@ -3,9 +3,11 @@ package com.rezaharisz.core.data
 import com.rezaharisz.core.data.sources.local.sources.LocalDataSources
 import com.rezaharisz.core.data.sources.remote.network.ApiResponse
 import com.rezaharisz.core.data.sources.remote.responses.ResponseDataMovie
+import com.rezaharisz.core.data.sources.remote.responses.ResponseDataTrending
 import com.rezaharisz.core.data.sources.remote.responses.ResponseDataTvShows
 import com.rezaharisz.core.data.sources.remote.sources.RemoteDataSource
 import com.rezaharisz.core.domain.model.Movies
+import com.rezaharisz.core.domain.model.Trending
 import com.rezaharisz.core.domain.model.TvShows
 import com.rezaharisz.core.domain.repository.IMovieKuRepository
 import com.rezaharisz.core.utils.AppExecutors
@@ -23,7 +25,7 @@ class MovieKuRepository @Inject constructor(
 ): IMovieKuRepository {
 
     override fun getMovies(): Flow<Resource<List<Movies>>> {
-        return object : com.rezaharisz.core.data.NetworkBoundResource<List<Movies>, List<ResponseDataMovie>>(){
+        return object : NetworkBoundResource<List<Movies>, List<ResponseDataMovie>>(){
             override fun loadFromDB(): Flow<List<Movies>> {
                 return localDataSources.getAllMovies().map {
                     DataMapper.mapMovieEntitiesToDomain(it)
@@ -59,7 +61,7 @@ class MovieKuRepository @Inject constructor(
     }
 
     override fun getTvShows(): Flow<Resource<List<TvShows>>>{
-        return object : com.rezaharisz.core.data.NetworkBoundResource<List<TvShows>, List<ResponseDataTvShows>>(){
+        return object : NetworkBoundResource<List<TvShows>, List<ResponseDataTvShows>>(){
             public override fun loadFromDB(): Flow<List<TvShows>> {
                 return localDataSources.getAlltTvShows().map {
                     DataMapper.mapTvShowsEntitiesToDomain(it)
@@ -93,4 +95,28 @@ class MovieKuRepository @Inject constructor(
             localDataSources.setFavoriteTvShows(tvShowsEntities, state)
         }
     }
+
+    override fun getTrending(): Flow<Resource<List<Trending>>> {
+        return object : NetworkBoundResource<List<Trending>, List<ResponseDataTrending>>(){
+            public override fun loadFromDB(): Flow<List<Trending>> {
+                return localDataSources.getTrending().map {
+                    DataMapper.mapTrendingEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Trending>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<List<ResponseDataTrending>>> {
+                return remoteDataSource.getTrending()
+            }
+
+            override suspend fun saveCallResult(data: List<ResponseDataTrending>) {
+                val trendingList = DataMapper.mapTrendingResponsesToEntities(data)
+                localDataSources.insertTrending(trendingList)
+            }
+        }.asFlow()
+    }
+
 }
