@@ -24,7 +24,7 @@ class LocalDataSources @Inject constructor(private val movieKuFavoritesDao: Movi
     }
 
     //TvShows
-    fun getAlltTvShows(): Flow<List<TvShowsEntities>> = movieKuFavoritesDao.getTvShows()
+    fun getAllTvShows(): Flow<List<TvShowsEntities>> = movieKuFavoritesDao.getTvShows()
 
     fun getFavoriteTvShows(): Flow<List<TvShowsEntities>> = movieKuFavoritesDao.getFavoriteTvShows()
 

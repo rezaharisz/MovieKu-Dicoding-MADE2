@@ -63,7 +63,7 @@ class MovieKuRepository @Inject constructor(
     override fun getTvShows(): Flow<Resource<List<TvShows>>>{
         return object : NetworkBoundResource<List<TvShows>, List<ResponseDataTvShows>>(){
             public override fun loadFromDB(): Flow<List<TvShows>> {
-                return localDataSources.getAlltTvShows().map {
+                return localDataSources.getAllTvShows().map {
                     DataMapper.mapTvShowsEntitiesToDomain(it)
                 }
             }

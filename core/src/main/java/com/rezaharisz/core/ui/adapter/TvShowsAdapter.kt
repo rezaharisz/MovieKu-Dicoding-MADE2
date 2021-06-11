@@ -2,11 +2,16 @@
 
 package com.rezaharisz.core.ui.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.rezaharisz.core.BuildConfig.BASE_IMAGE
 import com.rezaharisz.core.R
 import com.rezaharisz.core.databinding.ItemFavoritesBinding
@@ -32,6 +37,17 @@ class TvShowsAdapter: RecyclerView.Adapter<TvShowsAdapter.TvShowsHolder>() {
                 Glide.with(itemView)
                     .load(BASE_IMAGE + tvShows.poster)
                     .override(150,220)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                            binding.progressbar.visibility = View.VISIBLE
+                            return true
+                        }
+
+                        override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                            binding.progressbar.visibility = View.GONE
+                            return false
+                        }
+                    })
                     .into(ivPoster)
                 tvFavorites.text = tvShows.tvShowsName
                 tvRate.text = tvShows.rate.toString()

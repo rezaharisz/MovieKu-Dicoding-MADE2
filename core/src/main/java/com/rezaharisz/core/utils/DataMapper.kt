@@ -131,17 +131,4 @@ object DataMapper {
                 setFavorite = it.setFavorite
             )
         }
-
-    fun mapTrendingDomainToEntities(input: Trending) =
-        TrendingEntities(
-            id = input.id,
-            poster = input.poster,
-            trendingName = input.trendingName,
-            description = input.description,
-            releasedate = input.releasedate,
-            rate = input.rate,
-            votecount = input.votecount,
-            setFavorite = input.setFavorite
-        )
-
 }
